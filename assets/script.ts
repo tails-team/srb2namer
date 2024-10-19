@@ -344,6 +344,19 @@
 					prefixes: [],
 					reasons: [],
 				};
+
+				switch (game) {
+					case GameType.SRB2K:
+						prefixAccumulator.prefixes.push("K");
+						prefixAccumulator.reasons.push("This is an SRB2K mod");
+						break;
+					case GameType.DRRR:
+						prefixAccumulator.prefixes.push("D");
+						prefixAccumulator.reasons.push("This is a DRRR mod");
+						break;
+					default:
+						break;
+				}
 				let atLeastOneLua = false;
 				try {
 					let unzipped = fflate.unzipSync(
