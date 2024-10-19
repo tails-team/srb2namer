@@ -1,0 +1,137 @@
+html,
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+form,
+fieldset,
+caption,
+legend,
+table,
+tr,
+td,
+th,
+address,
+blockquote,
+img {
+    margin: 0px;
+    padding: 0px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body,
+button,
+input,
+table,
+textarea,
+select {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+body *,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+hr {
+    display: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+*,
+*:before,
+*:after {
+    /* outline: 1px solid red; */
+}
+
+/* begin */
+
+body {
+    color: #fff;
+    background-color: #333;
+
+    --pre-color: #444;
+}
+
+form br {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+form .field {
+    display: flex;
+}
+
+form .field * {
+    flex-grow: 1;
+}
+
+form .field label {
+    flex-grow: 0;
+    width: 5em;
+    display: inline-block;
+}
+
+form input[type="submit"] {
+    width: 20em;
+    margin: auto;
+}
+
+main {
+    max-width: 50em;
+    height: 100%;
+    margin: auto;
+    padding: 2em 1em;
+}
+
+header {
+    margin-bottom: 1em;
+    max-width: 25em;
+    margin: auto;
+    margin-bottom: 1em;
+}
+
+h1 {
+    text-align: center;
+    line-height: 1.18;
+    margin-bottom: 0.25em;
+}
+
+ol li {
+    margin-left: 2em;
+}
+
+pre {
+    background-color: var(--pre-color);
+    padding: 1em;
+}
+
+#file-name-result {
+    word-wrap: break-word;
+    white-space: normal;
+}

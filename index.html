@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width,height=device-height,initial-scale=1"
+        />
+        <title>SRB2 Add-on Renamer</title>
+        <meta property="og:site_name" content="Tails Team" />
+        <meta property="og:title" content="An SRB2 Add-on Renamer" />
+        <meta
+            property="og:description"
+            content="Because the last thing you want to worry about is what to
+        name the file."
+        />
+        <link
+            rel="stylesheet"
+            href="assets/style.css"
+            type="text/css"
+            media="screen"
+        />
+    </head>
+    <body>
+        <main>
+            <header>
+                <h1>An SRB2 Add-on Renamer</h1>
+                <p>
+                    Because the last thing you want to worry about is what to
+                    name the file, because the platform isn't smart enough to
+                    deduce this from the file's contents.
+                </p>
+            </header>
+            <form>
+                <div class="field">
+                    <label for="file-input">File: </label>
+                    <input type="file" name="filename" id="file-input" />
+                </div>
+                <br />
+                <div class="field">
+                    <label for="name-input">Name: </label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name-input"
+                        placeholder="Scrimblo McBrimblo"
+                    />
+                </div>
+                <br />
+                <div class="field">
+                    <label for="version-input">Version: </label>
+                    <input
+                        type="text"
+                        name="version"
+                        id="version-input"
+                        placeholder="1.6"
+                    />
+                </div>
+                <br />
+                <div class="field">
+                    <label for="target-input">Intended for: </label>
+                    <select id="target-input" name="target">
+                        <option value="srb2">Sonic Robo Blast 2</option>
+                        <option value="srb2k">Sonic Robo Blast 2 Kart</option>
+                        <option value="drrr">Dr. Robotnik's Ring Racers</option>
+                    </select>
+                </div>
+                <br />
+                <input type="submit" value="Get file name" id="do-the-thing" />
+            </form>
+            <pre id="file-name-result">File name will appear here</pre>
+            <details>
+                <summary>
+                    click here to see what the filename is deduced from
+                </summary>
+                <ol id="reasons-viewer"></ol>
+            </details>
+        </main>
+    </body>
+    <script src="vendor/fflate.min.js"></script>
+    <script src="assets/script.js"></script>
+</html>

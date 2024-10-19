@@ -1,0 +1,64 @@
+name: Deploy page
+
+on:
+  push:
+    branches: ["master"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          path: srb2renamer
+          sparse-checkout: |
+            assets
+            vendor
+            index.html
+
+      - name: Get ESBuild from cache
+        id: cache-esbuild
+        uses: actions/cache@master
+        with:
+          path: esbuild.tgz
+          key: esbuild
+
+      - name: Get ESBuild binary directly
+        if: steps.cache-esbuild.outpuuts.cache-hit != 'true'
+        run: |
+          sudo apt install wget tar gzip
+          wget -O esbuild.tgz
+
+      - name: Extract ESBuild
+        run: |
+          tar xf esbuild.tgz
+
+      - name: Generate JS from TS
+        run: |
+          cd srb2renamer/assets
+          ../../package/bin/esbuild script.ts > script.js
+
+      - name: Make html docs
+        run: nimble docs
+
+      - name: Setup GH pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: srb2renamer
+
+      - name: Deploy to GH Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
