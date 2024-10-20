@@ -167,34 +167,40 @@
 					) {
 						p.prefixes.push("S");
 						p.reasons.push(
-							"At least one level exists where the type is Single Player, Co-op, or Competition",
+							"S: At least one level exists where the type is Single Player, Co-op, or Competition",
 						);
 					} else if (
 						p.prefixes.indexOf("R") < 0 &&
 						types.indexOf("race") > -1
 					) {
 						p.prefixes.push("R");
-						p.reasons.push("At least one level exists where the type is Race");
+						p.reasons.push(
+							"R: At least one level exists where the type is Race",
+						);
 					} else if (
 						p.prefixes.indexOf("M") < 0 &&
 						types.indexOf("match") > -1
 					) {
 						p.prefixes.push("M");
-						p.reasons.push("At least one level exists where the type is Match");
+						p.reasons.push(
+							"M: At least one level exists where the type is Match",
+						);
 					} else if (
 						game !== GameType.DRRR &&
 						p.prefixes.indexOf("F") < 0 &&
 						types.indexOf("ctf") > -1
 					) {
 						p.prefixes.push("F");
-						p.reasons.push("At least one level exists where the type is CTF");
+						p.reasons.push(
+							"F: At least one level exists where the type is CTF",
+						);
 					} else if (
 						p.prefixes.indexOf("B") < 0 &&
 						types.indexOf("battle") > -1
 					) {
 						p.prefixes.push("B");
 						p.reasons.push(
-							"At least one level exists where the type is Battle",
+							"B: At least one level exists where the type is Battle",
 						);
 					} else if (
 						p.prefixes.indexOf("T") < 0 &&
@@ -202,7 +208,7 @@
 					) {
 						p.prefixes.push("T");
 						p.reasons.push(
-							"At least one level exists where the type is Tutorial",
+							"T: At least one level exists where the type is Tutorial",
 						);
 					}
 				}
@@ -216,14 +222,14 @@
 						/^character\s?/im.test(configLine[0])
 					) {
 						p.prefixes.push("C");
-						p.reasons.push("At least one character exists in the SOC");
+						p.reasons.push("C: At least one character exists in the SOC");
 					} else if (
 						game === GameType.DRRR &&
 						p.prefixes.indexOf("F") < 0 &&
 						/^follower\s?/im.test(configLine[0])
 					) {
 						p.prefixes.push("F");
-						p.reasons.push("At least one follower exists in the SOC");
+						p.reasons.push("F: At least one follower exists in the SOC");
 					}
 				}
 			}
@@ -234,11 +240,11 @@
 		switch (game) {
 			case GameType.SRB2K:
 				prefixAccumulator.prefixes.push("K");
-				prefixAccumulator.reasons.push("This is an SRB2K mod");
+				prefixAccumulator.reasons.push("K: This is an SRB2K mod");
 				break;
 			case GameType.DRRR:
 				prefixAccumulator.prefixes.push("D");
-				prefixAccumulator.reasons.push("This is a DRRR mod");
+				prefixAccumulator.reasons.push("D: This is a DRRR mod");
 				break;
 			default:
 				break;
@@ -316,14 +322,14 @@
 						) {
 							prefixAccumulator.prefixes.push("C");
 							prefixAccumulator.reasons.push(
-								"At least one P_SKIN or S_SKIN lump is present",
+								"C: At least one P_SKIN or S_SKIN lump is present",
 							);
 						}
 					}
 					if (atLeastOneLua) {
 						prefixAccumulator.prefixes.push("L");
 						prefixAccumulator.reasons.push(
-							"At least one Lua script is present",
+							"L: At least one Lua script is present",
 						);
 					}
 					// Return result
@@ -403,14 +409,14 @@
 						) {
 							prefixAccumulator.prefixes.push("C");
 							prefixAccumulator.reasons.push(
-								"At least one P_SKIN or S_SKIN lump is present",
+								"C: At least one P_SKIN or S_SKIN lump is present",
 							);
 						}
 					}
 					if (atLeastOneLua) {
 						prefixAccumulator.prefixes.push("L");
 						prefixAccumulator.reasons.push(
-							"At least one Lua script is present",
+							"L: At least one Lua script is present",
 						);
 					}
 					// Return result
