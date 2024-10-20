@@ -309,6 +309,16 @@
 							let mainCfg = arrayToUtf8(data.getU8ArrayAt(filePos, fileSize));
 							processSOCCommon(mainCfg, game, prefixAccumulator);
 						}
+						// Got skin
+						else if (
+							(fileName === "P_SKIN" || fileName === "S_SKIN") &&
+							prefixAccumulator.prefixes.indexOf("C") < 0
+						) {
+							prefixAccumulator.prefixes.push("C");
+							prefixAccumulator.reasons.push(
+								"At least one P_SKIN or S_SKIN lump is present",
+							);
+						}
 					}
 					if (atLeastOneLua) {
 						prefixAccumulator.prefixes.push("L");
