@@ -499,6 +499,7 @@
 			"Depending on the size, this may take a while, please wait…";
 		switch (extension) {
 			case ".pk3":
+			case ".zip":
 				try {
 					const result = await processPk3(
 						fileToProcess,
