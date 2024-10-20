@@ -34,7 +34,7 @@ jobs:
           key: esbuild
 
       - name: Get ESBuild binary directly
-        if: steps.cache-esbuild.outpuuts.cache-hit != 'true'
+        if: steps.cache-esbuild.outputs.cache-hit != 'true'
         run: |
           sudo apt install wget tar gzip
           wget -O esbuild.tgz https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.24.0.tgz
