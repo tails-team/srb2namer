@@ -378,21 +378,26 @@
 						new Uint8Array(fileData, 0, fileData.byteLength),
 					);
 					for (let filename in unzipped) {
+						// Skip folders
 						if (filename.slice(-1) === "/") {
-							// must be a folder
 							continue;
 						}
 						let iNorm = filename.toLowerCase();
 						let fileContent = unzipped[filename];
+						// Got SOC
 						if (iNorm.startsWith("soc/")) {
 							let soc = arrayToUtf8(fileContent);
 							processSOCCommon(soc, game, prefixAccumulator);
-						} else if (
+						}
+						// Got Lua
+						else if (
 							(iNorm.startsWith("lua/") && iNorm.length > "lua/".length) ||
 							iNorm == "init.lua"
 						) {
 							atLeastOneLua = true;
-						} else if (
+						}
+						// Got skin
+						else if (
 							(iNorm.endsWith("p_skin") || iNorm.endsWith("s_skin")) &&
 							prefixAccumulator.prefixes.indexOf("C") < 0
 						) {
