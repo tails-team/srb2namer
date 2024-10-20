@@ -378,8 +378,8 @@
 							let soc = arrayToUtf8(fileContent);
 							processSOCCommon(soc, game, prefixAccumulator);
 						} else if (
-							iNorm.startsWith("lua/") &&
-							iNorm.length > "lua/".length
+							(iNorm.startsWith("lua/") && iNorm.length > "lua/".length) ||
+							iNorm == "init.lua"
 						) {
 							atLeastOneLua = true;
 						}
