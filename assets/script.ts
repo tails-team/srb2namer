@@ -382,6 +382,14 @@
 							iNorm == "init.lua"
 						) {
 							atLeastOneLua = true;
+						} else if (
+							(iNorm.endsWith("p_skin") || iNorm.endsWith("s_skin")) &&
+							prefixAccumulator.prefixes.indexOf("C") < 0
+						) {
+							prefixAccumulator.prefixes.push("C");
+							prefixAccumulator.reasons.push(
+								"At least one P_SKIN or S_SKIN lump is present",
+							);
 						}
 					}
 					if (atLeastOneLua) {
