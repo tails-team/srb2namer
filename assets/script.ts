@@ -305,7 +305,7 @@
 							atLeastOneLua = true;
 						}
 						// Got SOC
-						if (fileName === "MAINCFG" || fileName.startsWith("SOC")) {
+						else if (fileName === "MAINCFG" || fileName.startsWith("SOC")) {
 							let mainCfg = arrayToUtf8(data.getU8ArrayAt(filePos, fileSize));
 							processSOCCommon(mainCfg, game, prefixAccumulator);
 						}
