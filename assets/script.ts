@@ -330,7 +330,7 @@
 					ok({
 						filename:
 							prefixAccumulator.prefixes.sort(makePrefixSort(game)).join("") +
-							"_" +
+							(prefixAccumulator.prefixes.length === 0 ? "" : "_") +
 							name +
 							"_v" +
 							version +
@@ -417,7 +417,7 @@
 					ok({
 						filename:
 							prefixAccumulator.prefixes.sort(makePrefixSort(game)).join("") +
-							"_" +
+							(prefixAccumulator.prefixes.length === 0 ? "" : "_") +
 							name +
 							"_v" +
 							version +
