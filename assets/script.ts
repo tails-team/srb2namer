@@ -1,5 +1,6 @@
 ///<reference path="../vendor/fflate.d.ts" />
-// import fflate from "../vendor/fflate.min";
+///<reference path="../vendor/lzf.d.ts" />
+///import fflate from "../vendor/fflate.min";
 
 (function (d: Document) {
 	type FNameResult = { filename: string; reasons: string[] };
@@ -40,6 +41,10 @@
 
 		public seek(n: number) {
 			this.position = n;
+		}
+
+		public peekU32(pos: number): number {
+			return this.data.getUint32(pos, true);
 		}
 
 		/**
@@ -276,12 +281,13 @@
 				// Let's just let "file too short" errors be.
 				// They'll be totally-comprehensible RangeErrors :p
 				try {
+					let isWadZip = false;
 					let data = new WadReader(raw as ArrayBuffer);
 					// WADs must start with either:
 					//   - IWAD (internal WAD)
 					//   - PWAD (patch WAD)
 					//   - SDLL (demo 4 hidden WAD)
-					// ZWAD is not supported yet.
+					//   - ZWAD (wadzip)
 					let fourCC = data.getFourCC();
 					switch (fourCC) {
 						case "PWAD":
@@ -290,14 +296,19 @@
 							console.log(`WAD identifier is ${fourCC}`);
 							break;
 						case "ZWAD":
-							throw new Error("ZWAD is not supported yet");
+							console.log(`WAD is wadzip file`);
+							isWadZip = true;
+							break;
 						default:
 							throw new Error("not a valid WAD file");
 					}
+					
 					let nLumps = data.getU32();
-					//console.log(`number of lumps to scan: ${nLumps}`);
+					console.log(`number of lumps to scan: ${nLumps}`);
+					
 					let dirLoc = data.getU32();
-					//console.log(`location of directory: ${dirLoc}`);
+					console.log(`location of directory: 0x${dirLoc.toString(16)}`);
+					
 					data.seek(dirLoc);
 
 					// Process the WAD
@@ -312,8 +323,41 @@
 						}
 						// Got SOC
 						else if (fileName === "MAINCFG" || fileName.startsWith("SOC")) {
-							let mainCfg = arrayToUtf8(data.getU8ArrayAt(filePos, fileSize));
-							processSOCCommon(mainCfg, game, prefixAccumulator);
+							if (isWadZip) {
+								let uncompressedSize = data.peekU32(filePos);
+								let rawData = data.getU8ArrayAt(filePos + 4, fileSize - 4);
+								if (uncompressedSize == 0) {
+									// this is an uncompressed lump
+									let mainCfg = arrayToUtf8(rawData);
+									processSOCCommon(
+										mainCfg,
+										game,
+										prefixAccumulator
+									);
+								} else {
+									// this is a compressed lump
+									let decompressed = decompressLzf(rawData, fileSize);
+									let mainCfg = arrayToUtf8(
+										new Uint8Array(
+											decompressLzf(rawData, fileSize)
+										)
+									);
+									processSOCCommon(
+										mainCfg,
+										game,
+										prefixAccumulator
+									);
+								}
+							} else {
+								let mainCfg = arrayToUtf8(
+									data.getU8ArrayAt(filePos, fileSize)
+								);
+								processSOCCommon(
+									mainCfg,
+									game,
+									prefixAccumulator
+								);
+							}
 						}
 						// Got skin
 						else if (
